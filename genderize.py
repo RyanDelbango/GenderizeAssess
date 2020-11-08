@@ -39,10 +39,6 @@ def genderize(args):
         print("--- Input file does not exist. Exiting.\n")
         sys.exit()
 
-    # if not os.path.exists(os.path.dirname(ofile)):
-    #     print("--- Error! Invalid output file path. Exiting.\n")
-    #     sys.exit()
-
     #Some set up stuff
     ##csv.field_size_limit(sys.maxsize)
 
