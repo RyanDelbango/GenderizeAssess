@@ -162,6 +162,16 @@ def genderize(args):
         df["gender"] = genderFinal
         df["probability"] = probabilityFinal
         df["count"] = countFinal
+
+        #get rid of decimals in user_id column
+        ids = []
+        for i in range(len(df)):
+            if (df.loc[i, "user_id"] > 0):
+                ids.append(str(int(df.loc[i, "user_id"])))
+            else:
+                ids.append(df.loc[i, "user_id"])
+
+        df["user_id"] = ids
         df.to_csv(ofile, index= False, index_label= False)
 
         if args.auto == True:
