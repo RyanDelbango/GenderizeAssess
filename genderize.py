@@ -158,10 +158,29 @@ def genderize(args):
             probabilityFinal.append(probability[names.index(df.loc[i, "first_name"])])
             countFinal.append(count[names.index(df.loc[i, "first_name"])])
 
-        #add new columns to the data frame and convert to csv
-        df["gender"] = genderFinal
-        df["probability"] = probabilityFinal
-        df["count"] = countFinal
+        #no override: probability, gender and count columns created
+        if args.override == False:
+            #add new columns to the data frame and convert to csv
+            df["gender"] = genderFinal
+            df["probability"] = probabilityFinal
+            df["count"] = countFinal
+
+        #override argument creating male and female columns
+        if args.override == True:
+            male = []
+            female = []
+            for item in genderFinal:
+                if (item == 'male'):
+                    male.append('1')
+                    female.append('0')
+                if (item == 'female'):
+                    male.append('0')
+                    female.append('1')
+                if (item == None):
+                    male.append('0')
+                    female.append('0')
+            df["male"] = male
+            df["female"] = female
 
         #get rid of decimals in user_id column
         ids = []
@@ -198,5 +217,6 @@ if __name__ == "__main__":
     parser.add_argument('-c','--catch', help='Try to handle errors gracefully', required=False, action='store_true', default=True)
     parser.add_argument('-a','--auto', help='Automatically complete gender for identical first_name', required=False, action='store_true', default=False)
     parser.add_argument('-nh','--noheader', help='Input has no header row', required=False, action='store_true', default=False)
+    parser.add_argument('-ovr', '--override', help='Override activation', required=False, action='store_true', default=False)
 
     genderize(parser.parse_args())
