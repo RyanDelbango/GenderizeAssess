@@ -162,7 +162,7 @@ def genderize(args):
         df["gender"] = genderFinal
         df["probability"] = probabilityFinal
         df["count"] = countFinal
-        df.to_csv(ofile, index= False, index_label= False)
+        df.to_csv(ofile, index= False, index_label= False, float_format='%.0f')
 
         if args.auto == True:
             print("\nCompleting identical first_name...\n")
